@@ -9,11 +9,6 @@ class AerolineaSerializer(serializers.ModelSerializer):
 
 
 class VueloSerializer(serializers.ModelSerializer):
-    aerolinea_nombre = serializers.CharField(
-        source='aerolinea.nombre',
-        read_only=True
-    )
-
     class Meta:
         model = Vuelo
         fields = '__all__'
