@@ -1,19 +1,18 @@
-from rest_framework import serializers
-from .models import Aerolinea, Vuelo
+from django.db import models
+
+class Aerolinea(models.Model):
+    nombre = models.CharField(max_length=100)
+    pais_origen = models.CharField(max_length=100)
+
+    def __str__(self):
+        return self.nombre
 
 
-class AerolineaSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Aerolinea
-        fields = '__all__'
+class Vuelo(models.Model):
+    codigo = models.CharField(max_length=10)
+    origen = models.CharField(max_length=100)
+    destino = models.CharField(max_length=100)
+    aerolinea = models.ForeignKey(Aerolinea, on_delete=models.CASCADE, related_name='vuelos')
 
-
-class VueloSerializer(serializers.ModelSerializer):
-    aerolinea_nombre = serializers.CharField(
-        source='aerolinea.nombre',
-        read_only=True
-    )
-
-    class Meta:
-        model = Vuelo
-        fields = '__all__'
+    def __str__(self):
+        return self.codigo
